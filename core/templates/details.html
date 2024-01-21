@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="details-nav" style=" background: linear-gradient(rgba(91, 5, 212, 0.976), rgba(63, 8, 134, 0.96));">
+
+    <img src="{% static 'images/close-up-young-business-team-working.jpg' %}" alt="" style="width: 100%;position: relative;opacity: 0.3;height:20vh;top: 60%;object-fit:cover">
+    <h1 style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); color: white;" class="fw-bolder"><strong>Job Details</strong></h1>
+</div>
+<div class="col-12 d-flex" style="margin:auto;width:50%">
+    <div class="card m-5" style="height:100vh;">
+
+    
+            <div class="col-md-12">
+                <div class="card-body fw-bold" style="padding-top:50px">
+                    <h5 class="card-title" style="font-size:40px"><strong>{{jobs.title}}</strong></h5><br>
+                    <div class="d-flex gap-5">
+                    <h5><i class="fa-solid fa-location-dot" style="color: #FFD43B;"></i> {{ jobs.location }}</h5>
+                    <h5><i class="fa-solid fa-money-bill" style="color: #63E6BE;"></i>   {{ jobs.salary }}</h5>
+                    <h5><i class="fa-regular fa-clock"></i>   {{ jobs.created_on | timesince}}</h5>
+                    <button class="btn btn-danger" style="border-radius:15px;pb-3"><strong> {{ jobs.Job_type }}</strong></button><br>
+                </div>
+                    <hr>  
+                    <br>  
+                    <h6><strong>Description:</strong> {{ jobs.description }}</h6><br>
+                    <h6><strong>Industry:</strong> {{ jobs.industry }}</h6><br>
+                    <h6><strong>Requirements:</strong> {{ jobs.requirements }}</h6><br>
+                    <h6><strong>Responsibities:</strong> {{ jobs.Responsibities }}</h6><br>
+                    <h6><strong>Job Type:</strong> {{ jobs.Job_type }}</h6><br>
+                    <h6><strong>Qualifications:</strong> {{ jobs.qualifications }}</h6><br>
+                    <h6><strong>Benifits:</strong> {{ jobs.Benifits }}</h6><br>
+                    <h6><strong>Posted By:</strong> {{ jobs.posted_by.company_name }}</h6><br>
+                    <br>
+                    <hr>
+                    <br>
+                    {% if request.user !=  jobs.posted_by.user  %}
+                   <a href="{% url "apply" job_id=jobs.pk %}">
+                    <button type="submit" class="btn" style="width:120px;border-radius:15px;background-color:#F65129;color:#fff">
+                        Apply Now
+                      </button></a>
+                    {% else %}
+                    <a href="{% url "jobupate" jobs.pk %}">
+                        <button type="submit" class="btn" style="width:120px;border-radius:15px;background-color:#F65129;color:#fff">
+                            Edit
+                          </button></a>
+                      {% endif %}
+                     
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}

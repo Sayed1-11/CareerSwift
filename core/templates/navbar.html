@@ -1,0 +1,72 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg" >
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{% static "images/logo.png" %}" class="img-fluid logo-image" >
+
+            <div class="d-flex flex-column">
+                <strong class="logo-text">CareerSwift</strong>
+                <small class="logo-slogan">Online Job Portal</small>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center ms-lg-5">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Homepage</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Jobs</a>
+
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url "joblist" %}">Job Listings</a></li>
+                        <li><a class="dropdown-item" href="{% url "jobdetails" %}">Job Details</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url "jobs" %}">Post JOB</a>
+                        </li>
+        
+                        <li>
+                            <a class="dropdown-item" href="{% url "employee" %}">Become  Employee</a>
+                        </li>
+                 
+                        <li>
+                            <a class="dropdown-item" href="{% url "seeker" %}">Seeker</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "contact" %}">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Move Register and Login to the right -->
+            
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "profile" %}">Profile</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-btn btn" href="{% url "Logout" %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "registration" %}">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-btn btn" href="{% url "login" %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

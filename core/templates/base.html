@@ -1,0 +1,287 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+<style>
+ 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar {
+  background-color: #ffffff; 
+  padding: 10px 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000000; 
+}
+
+.logo-image {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 1.5rem; 
+  font-weight: bold;
+  margin: 0;
+  color: #000; 
+}
+
+.logo-slogan {
+  font-size: 0.8rem;
+  color: #EF6342; 
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-color: #ecf0f1;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000; 
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #EF6342; 
+}
+
+.dropdown-menu {
+  background-color: #6E2BF2; 
+}
+
+.dropdown-item {
+  color: #fff; 
+}
+
+.dropdown-item:hover {
+  background-color: #EF6342;
+}
+
+.custom-btn {
+  background-color: #0B5ED7;
+  color: #ecf0f1;
+  border: none;
+  width:100px;
+  border-radius: 25px;
+}
+
+.custom-btn:hover {
+  background-color: #6E2BF2;
+  color:black;
+}
+
+
+
+
+.site-footer {
+    background-color: #fff; 
+    color: #fff;
+    margin-top:36px ;
+}
+
+.site-footer a {
+    color: #D54928; 
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+.site-footer-title {
+    color: #000;
+}
+
+.footer-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-menu-item {
+    margin-top: 10px;
+}
+
+.newsletter-form {
+    width: 100%;
+    padding:10px ;
+    box-shadow:4px 4px 8px grey;
+}
+
+.newsletter-form input,
+.newsletter-form button {
+    border: none;
+    padding: 10px;
+}
+
+
+.site-footer-bottom {
+    background-color: #D54928; 
+    color: #fff; 
+    padding: 10px 0;
+}
+.site-footer-bottom a{
+  color: #fff;
+}
+.copyright-text {
+    margin-bottom: 0;
+}
+
+.social-icon {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.social-icon-item {
+    margin-right: 10px;
+}
+.social-icon-item img{
+  width:30px;
+  margin:20px 5px;
+}
+
+.back-top-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #3498db;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+}
+
+
+@media (max-width: 767px) {
+    .site-footer {
+        text-align: center;
+    }
+
+    .site-footer .container {
+        padding: 20px;
+    }
+
+    .site-footer-bottom {
+        text-align: center;
+    }
+    
+  
+
+  
+    
+}
+
+</style>
+
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    {% include "message.html" %}
+        {% block content %}
+        <div class="details-nav" style="background: linear-gradient(rgb(41%, 36%, 72%), rgb(41%, 36%, 72%));">
+
+          <img src="{% static 'images/page.jpg' %}" alt="" style="width: 100%;position: relative;opacity: 0.1;height:60vh;object-fit:cover">
+          
+          <h4 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); color: white;" class="fw-bolder"><strong>Are you looking for your dream job?</strong>
+          </h4>
+          <h1 style="position: absolute; top: 37%; left: 50%; transform: translate(-50%, -50%); color: white;" class="fw-bolder"><strong> Online Platform. <br>
+            Best Job portal<br>
+          </strong>
+          </h1>
+          <a href="#category">
+          <h1 style="position: absolute; top: 48%; left: 48%; transform: translate(-50%, -50%); color: white;" class="fw-bolder"><strong> <button class="btn btn-dark"style="color:white;width:170px;border-radius:20px">Browse Categories</button></a>
+          </strong>
+          </h1>
+
+          
+      </div>
+   
+      <div class="category"style="height:40vh" id='category'>
+        <h1 style="color: black; font-family: 'Dancing Script', Sans Serif; font-size: 70px;"class="container">Catagories</h1> 
+        <hr>
+        <div class="container gap-2"  >
+        {% for cat in industry %}
+    
+    <div class="form-check mt-5" >
+    
+      <a href="{%url 'industry' cat.slug%}" style="text-decoration:none;color:black;"><img src="{{cat.image.url}}"style="width:100px;height:100px;border-radius:50%;background:rgb(84%, 29%, 16%);"  alt=""><label class="form-check-label" for="{{cat.id}}">
+        {{cat|truncatewords:1}}
+        </label>
+        
+    </a> 
+    </div>
+    {% endfor %}
+  </div>
+      </div>
+
+    </div>
+
+
+<hr>
+        <div style="width:50%;margin:auto">
+          <h1 style="color: black; font-family: 'Dancing Script', Sans Serif; font-size: 80px;margin-left:250px"class="container">Featured Jobs</h1>
+        {% for job in data %}
+
+        <div class="card w-100 mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Title : {{job.title}}</strong></h5>
+            <p class="card-text">
+              <strong>Job Type: {{ job.Job_type }}</strong> <br>
+              <strong>Location: {{ job.location }}</strong><br>
+              <strong>Posted By:</strong> {{ job.posted_by.company_name }}<br>
+              <strong>Description:</strong> {{ job.description | truncatewords:10 }}<br>
+              
+              </p>
+              <a href="{% url "details" job.pk %}" style="text-decoration:none;"><button type="submit" class="btn" style="width:120px;border-radius:15px;background-color:#F65129;color:#fff">Apply Now</button></a>
+          </div>
+        </div>
+       
+         
+        
+        
+        <br>
+        <br>
+        
+        {% endfor %}
+      </div>
+     
+        {% endblock content %}
+  
+        {% include "footer.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
