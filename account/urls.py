@@ -7,5 +7,5 @@ urlpatterns = [
     path('registration/',views.Registrationview.as_view(),name='registration'),
     path('profile/',views.profile.as_view(),name='profile'),
     path('Logout/',views.Logout.as_view(),name='Logout'),
-    
+    path('active/<uid64>/<token>/',views.activate,name='activate'),
 ]
