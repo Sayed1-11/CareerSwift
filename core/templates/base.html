@@ -230,21 +230,26 @@ body {
           
       </div>
    
-      <div class="category"style="height:40vh" id='category'>
+     <div class="category"style="" id='category'>
         <h1 style="color: black; font-family: 'Dancing Script', Sans Serif; font-size: 70px;"class="container">Catagories</h1> 
         <hr>
         <div class="container gap-2"  >
+          <div class="row">
         {% for cat in industry %}
+        <div class="col-12 col-sm-6 col-md-3  mt-5">
+        <div class="form-check" >
     
-    <div class="form-check mt-5" >
-    
-      <a href="{%url 'industry' cat.slug%}" style="text-decoration:none;color:black;"><img src="{{cat.image.url}}"style="width:100px;height:100px;border-radius:50%;background:rgb(84%, 29%, 16%);"  alt=""><label class="form-check-label" for="{{cat.id}}">
+        
+      <a href="{%url 'industry' cat.slug%}" style="text-decoration:none;color:black;"><img src="{{cat.image.url}}"style="width:100px;height:100px;border-radius:50%;background:rgb(84%, 29%, 16%);"  alt="">
+        <label class="form-check-label" for="{{cat.id}}">
         {{cat|truncatewords:1}}
         </label>
-        
     </a> 
-    </div>
+  </div>
+  </div>
+
     {% endfor %}
+  </div>
   </div>
       </div>
 
