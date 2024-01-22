@@ -6,12 +6,19 @@ from django.contrib.auth.views import LoginView,LogoutView
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.utils.encoding import force_bytes,force_str
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+
 # Create your views here. 
 
 class Registrationview(FormView):
     template_name = "register.html"
     form_class = RegistrationForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
@@ -19,7 +26,17 @@ class Registrationview(FormView):
         return super().dispatch(request, *args, **kwargs)
     def form_valid(self, form):
         user = form.save()
-        login(self.request,user)
+        user.is_active = False
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        print("uid ",uid)
+        confirm_link = f"http://127.0.0.1:8000/active/{uid}/{token}"
+        email_subject = "Confirm Email"
+        email_body = render_to_string('confirm_email.html',{'confirm_link': confirm_link})
+        email = EmailMultiAlternatives(email_subject, "",to=[user.email])
+        email.attach_alternative(email_body,"text/html")
+        email.send()
+        user.save()
         return super().form_valid(form)
     
 class Login(LoginView):
@@ -58,4 +75,18 @@ class profile(LoginRequiredMixin,View):
         return render(request, self.template_name, {'form': form})
     
 
+def activate(request,uid64,token):
+    try :
+        uid = force_str(urlsafe_base64_decode(uid64))
+        print(uid)
+        user = User._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
 
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active = True
+        user.save()
+        return redirect('login')
+
+    else:
+        return redirect('registration')
