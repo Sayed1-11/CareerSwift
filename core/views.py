@@ -13,6 +13,17 @@ from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
 # Create your views here.
 
+
+def send_transaction_email(email, subject, template):
+        message = render_to_string(template, {
+            
+            
+        })
+        send_email = EmailMultiAlternatives(subject, '', to=[email])
+  
+        send_email.attach_alternative(message, "text/html")
+        send_email.send()
+
 class HomeView(TemplateView):
     template_name = 'base.html'
     form_class = JobSearch
