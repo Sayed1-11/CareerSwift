@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.views.generic import DetailView,CreateView,ListView,View,FormView
+from django.views.generic import DetailView,CreateView,ListView,View,FormView,HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from datetime import datetime
@@ -50,4 +50,12 @@ class Contact_us(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-    
+
+
+def subsribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('newsletter-email')
+        send_transaction_email(email, "New Subsribtion", "subsribe_mail.html")
+        return HttpResponseRedirect(reverse_lazy('home'))
+    else:
+        return HttpResponseRedirect(reverse_lazy('home'))
