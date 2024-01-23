@@ -1,5 +1,5 @@
-from django.shortcuts import render,get_object_or_404,redirect
-from django.views.generic import DetailView,CreateView,ListView,View,FormView,HttpResponseRedirect
+from django.shortcuts import render,get_object_or_404,redirect,HttpResponseRedirect
+from django.views.generic import DetailView,CreateView,ListView,View,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from datetime import datetime
