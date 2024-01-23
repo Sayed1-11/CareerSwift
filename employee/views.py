@@ -14,5 +14,10 @@ class BecomeEmployee(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form) :
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        employee_exist = Employee.objects.filter(user = self.request.user).exists()
+        if employee_exist :
+            messages.error(self.request,"You are already a employee")
+            return redirect('home')
+        else:
+            form.instance.user = self.request.user
+            return super().form_valid(form)
