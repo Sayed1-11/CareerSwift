@@ -33,6 +33,7 @@
                     <br>
                     <hr>
                     <br>
+                    {% if user.is_authenticated %}                   
                     {% if request.user !=  jobs.posted_by.user  %}
                    <a href="{% url "apply" job_id=jobs.pk %}">
                     <button type="submit" class="btn" style="width:120px;border-radius:15px;background-color:#F65129;color:#fff">
@@ -44,6 +45,8 @@
                             Edit
                           </button></a>
                       {% endif %}
+                      {% endif %}
+
                      
                 </div>
         </div>
