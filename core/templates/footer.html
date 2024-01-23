@@ -77,16 +77,18 @@
             <div class="col-lg-4 col-md-8 col-12 mt-3 mt-lg-0">
                 <h6 class="site-footer-title">Newsletter</h6>
 
-                <form class="custom-form newsletter-form" action="#" method="post" role="form">
+                <form class="custom-form newsletter-form" action="{% url "subsribe" %}" method="post" role="form">
+                    {% csrf_token %}
                     <h6 class="site-footer-title">Get notified about job news</h6>
-                 {% csrf_token %}
+                
                     <div class="input-group">
                         <input type="email" name="newsletter-name" id="newsletter-name" class="form-control" placeholder="Your email address" required>
-                
+                         
                         <a href="{% url "home" %}"> 
                         <button type="submit" class="btn btn-primary">
                            <i class="bi bi-envelope"></i> Subscribe
                         </button></a>
+                       
                     </div>
                 </form>
                 
