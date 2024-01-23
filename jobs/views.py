@@ -29,7 +29,11 @@ class JobsView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        employee = get_object_or_404(Employee,user = self.request.user)
+        try:
+            employee = get_object_or_404(Employee,user = self.request.user)
+        except:
+             messages.error(self.request,"You need to become a employee to post a job")
+             return redirect('employee')
         form.instance.posted_by = employee
         return super().form_valid(form)
         
