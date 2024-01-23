@@ -12,7 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-
+from django.contrib import messages
 # Create your views here. 
 
 class Registrationview(FormView):
@@ -36,6 +36,7 @@ class Registrationview(FormView):
         email = EmailMultiAlternatives(email_subject, "",to=[user.email])
         email.attach_alternative(email_body,"text/html")
         email.send()
+        messages.error(self.request,"Please check your email to active your account")
         user.save()
         return super().form_valid(form)
     
@@ -86,6 +87,7 @@ def activate(request,uid64,token):
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active = True
         user.save()
+        messages.success(self.request,"Account activated")
         return redirect('login')
 
     else:
