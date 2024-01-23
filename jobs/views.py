@@ -43,20 +43,22 @@ class AppliedView(LoginRequiredMixin, FormView):
         job_id = self.kwargs['job_id']
         job = get_object_or_404(Jobs, pk=job_id)
         letter = form.cleaned_data['letter']
-        Seeker = get_object_or_404(Job_seeker, user=self.request.user)
-        if Seeker is not None  :
-            applied, created = JobApplication.objects.get_or_create(
+        try:
+            Seeker = get_object_or_404(Job_seeker, user=self.request.user)
+        except:
+             messages.error(self.request,"You need to become a job seeker to apply in this job")
+             return redirect('seeker')
+        
+        applied, created = JobApplication.objects.get_or_create(
                 job=job,
                 seeker=Seeker,
                 letter=letter,
                 resume = Seeker.resume,
                 applied=datetime.now(),
             )
-            messages.success(self.request,"Application Successfully applied")
-            send_transaction_email(job.posted_by.user, "Applied for you job", "applied_mail.html",letter=letter,seeker=Seeker)
-        else :
-            messages.error(self.request,"You need to become a job seeker to apply in this job")
-            return redirect('seeker')
+        messages.success(self.request,"Application Successfully applied")
+        send_transaction_email(job.posted_by.user, "Applied for you job", "applied_mail.html",letter=letter,seeker=Seeker)
+        
 
         return super().form_valid(form)
         
