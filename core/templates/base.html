@@ -119,6 +119,14 @@ body {
     text-decoration: underline;
 }
 
+.card :hover {
+    box-shadow:4px 4px 8px grey;
+}
+.card-body :hover {
+    box-shadow:none;
+}
+
+  
 .site-footer-title {
     color: #000;
 }
@@ -261,16 +269,17 @@ body {
           <h1 style="color: black; font-family: 'Dancing Script', Sans Serif; font-size: 80px;margin-left:250px"class="container">Featured Jobs</h1>
         {% for job in data %}
 
-        <div class="card w-100 mb-3">
+        <div class="card w-100 mb-5">
           <div class="card-body">
-            <h5 class="card-title"><strong>Title : {{job.title}}</strong></h5>
+            <h4 class="card-title"style="color:rgb(96%, 32%, 16%)"><strong>{{job.title}}</strong></h4>
             <p class="card-text">
-              <strong>Job Type: {{ job.Job_type }}</strong> <br>
-              <strong>Location: {{ job.location }}</strong><br>
-              <strong>Posted By:</strong> {{ job.posted_by.company_name }}<br>
-              <strong>Description:</strong> {{ job.description | truncatewords:10 }}<br>
-              
-              </p>
+              <div class="row  text-secondary gap-0">
+              <div class="col-4"><i class="fa-solid fa-user" style="color: #f65129;"></i><strong>
+                {{ job.posted_by.company_name }}</strong></div>
+              <div class="col-4"><i class="fa-solid fa-location-dot" style="color: #f65129;"></i> <strong>{{ job.location }}</strong></div>
+              <div class="col-4"> <i class="fa-regular fa-clock" style="color: #f65129;"></i> <strong>{{ job.Job_type }}</strong></div>
+            </div>
+            </p>
               <a href="{% url "details" job.pk %}" style="text-decoration:none;"><button type="submit" class="btn" style="width:120px;border-radius:15px;background-color:#F65129;color:#fff">Apply Now</button></a>
           </div>
         </div>
