@@ -6,7 +6,7 @@ from location.models import Location
 class Job_seeker(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='seeker')
     bio = models.TextField()
-    resume = models.TextField(default=None)
+    resume = models.TextField(default='')
     
 
     def __str__(self) -> str:
