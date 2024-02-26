@@ -34,9 +34,11 @@
                             <a class="dropdown-item" href="{% url "employee" %}">Become  Employee</a>
                         </li>
                  
-                        <li>
-                            <a class="dropdown-item" href="{% url "seeker" %}">Seeker</a>
-                        </li>
+                         {% if show_seeker_link %}
+    <li>
+        <a class="dropdown-item" href="{% url "seeker" %}">Seeker</a>
+    </li>
+{% endif %}
                     </ul>
                 </li>
                 {% endif %}
