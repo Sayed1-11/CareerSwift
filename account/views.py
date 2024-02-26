@@ -68,7 +68,7 @@ class profile(LoginRequiredMixin,View):
     def get(self, request):
         form = ChangeUserForm(instance=request.user)
         jobs, _ = Job_seeker.objects.get_or_create(user=request.user)
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form,'jobs':jobs})
 
     def post(self, request):
         form = ChangeUserForm(request.POST, instance=request.user)
