@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from datetime import datetime
 from django.urls import reverse_lazy
+from job_seeker.models import Job_seeker
 from django.views.generic import TemplateView
 from jobs.models import Jobs
 from category.models import Category
