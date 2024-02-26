@@ -12,6 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from job_seeker.models import Job_seeker
 from django.contrib import messages
 # Create your views here. 
 
@@ -66,6 +67,7 @@ class profile(LoginRequiredMixin,View):
 
     def get(self, request):
         form = ChangeUserForm(instance=request.user)
+        jobs, _ = Job_seeker.objects.get_or_create(user=request.user)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
