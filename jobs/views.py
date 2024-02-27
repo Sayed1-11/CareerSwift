@@ -57,9 +57,16 @@ class AppliedView(LoginRequiredMixin, FormView):
                 job=job,
                 seeker=Seeker,
                 letter=letter,
-                resume = Seeker.resume,
+                CareerObjective = Seeker.CareerObjective,
+                projects_name = Seeker.projects_name,
+                Experience = Seeker.Experience,
+                about_me = Seeker.about_me,
+                Contact = Seeker.Contact,
+                github_link = Seeker.github_link,
+                others_link = Seeker.others_link,
                 applied=datetime.now(),
             )
+        applied.skills.set(Seeker.skills.all())
         messages.success(self.request,"Application Successfully applied")
         send_transaction_email(job.posted_by.user, "Applied for you job", "applied_mail.html",letter=letter,seeker=Seeker)
         
