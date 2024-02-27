@@ -1,6 +1,6 @@
 from django.db import models
 from employee.models import Employee
-from job_seeker.models import Job_seeker
+from job_seeker.models import Job_seeker,Skill
 from location.models import Location
 from category.models import Category
 # Create your models here.
@@ -9,8 +9,6 @@ JOB_TYPE = [
     ('Part-Time','part_time'),
     ('Remote','Remote'),
 ]
-
-
 
 class Jobs(models.Model):
     title = models.CharField(max_length=70)
@@ -32,7 +30,14 @@ class Jobs(models.Model):
 class JobApplication(models.Model):
     job = models.ForeignKey(Jobs, on_delete=models.CASCADE)
     seeker = models.ForeignKey(Job_seeker, on_delete=models.CASCADE)
-    resume = models.TextField(default=None)
+    CareerObjective = models.TextField(null=True)
+    skills = models.ManyToManyField(Skill)
+    projects_name = models.TextField(null=True, blank=True)
+    Experience = models.TextField(null=True, blank=True)
+    about_me = models.TextField(null=True)
+    Contact = models.CharField(max_length=12,null=True)
+    github_link = models.CharField(max_length=500,null=True)
+    others_link = models.CharField(max_length=256,null=True,blank=True)
     letter = models.TextField()
     applied = models.DateTimeField(auto_now_add=True)
 
