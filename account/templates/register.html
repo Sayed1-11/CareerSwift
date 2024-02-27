@@ -2,13 +2,32 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div style="background-color:#EAF6FD">
-<form style="width:50%;margin:auto;" method='post'>
-    <h1 class="pt-3">Registration Page</h1>
-    {% csrf_token %}
-{{form|crispy}}
-
-<button class="btn btn-primary mb-3">Register</button>
-</form>
+<div style="background-color:#f7f6f5; padding: 20px;">
+    <form style="width:50%;margin:auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);" method='post'>
+        <h1 class="pt-3" style="text-align: center; color: #333; margin-bottom: 20px;">Registration Page</h1>
+        {% csrf_token %}
+        {{form|crispy}}
+        
+        <!-- Error Messages -->
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
+        <button class="btn btn-primary mb-3" style="display: block; width: 100%;">Register</button>
+    </form>
+    
+    <!-- Success Message -->
+    {% if request.GET.success %}
+        <div class="alert alert-success" role="alert" style="text-align: center;">
+            Registration successful! You can now log in.
+        </div>
+    {% endif %}
 </div>
+
+    
+
 {% endblock content %}
