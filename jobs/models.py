@@ -21,7 +21,7 @@ class Jobs(models.Model):
     Post = models.CharField(max_length=255,default=None)
     salary = models.CharField(max_length=255,default=None)
     Benifits = models.CharField(max_length=255,default=None)
-    posted_by = models.OneToOneField(Employee,on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(Employee,on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE,default=None)
     def __str__(self) -> str:
