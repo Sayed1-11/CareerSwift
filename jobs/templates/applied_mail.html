@@ -31,6 +31,14 @@
         p {
             color: #777;
         }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +71,8 @@
         <hr>
         <h3>Other Links</h3>
         <p>{{ seeker.others_link }}</p>
+        <hr>
+        <a href="mailto:{{ seeker.user.email }}" class="btn">Call for Interview</a>
         <hr>
         <p>Thanks for considering my application.</p>
         <p>Sincerely,</p>
