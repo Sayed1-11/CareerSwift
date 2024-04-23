@@ -1,14 +1,29 @@
-{% extends 'base.html' %} 
+{% extends 'index.html' %} 
 {% load static %}
 {% load humanize %}
 
 {% block content %}
-<div class="contact-nav" style=" background: linear-gradient(rgba(91, 5, 212, 0.976), rgba(63, 8, 134, 0.96));">
+<header class="site-header">
+  <div class="section-overlay"></div>
 
-  <img src="{% static 'images/close-up-young-business-team-working.jpg' %}" alt="" style="width: 100%;position: relative;opacity: 0.3;height:40vh;object-fit:cover">
-  <h1 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); color: white;" class="fw-bolder"><strong> Edit Jobs</strong></h1>
-</div>
+  <div class="container">
+      <div class="row">
+          
+          <div class="col-lg-12 col-12 text-center">
+              <h1 class="text-white">Job details</h1>
 
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="/">Home</a></li>
+
+                      <li class="breadcrumb-item active" aria-current="page">Job details</li>
+                  </ol>
+              </nav>
+          </div>
+
+      </div>
+  </div>
+</header>
   <div Style="width:50%;margin:auto;margin-top:30px">
   <form method="get" action="{% url 'joblist' %}">
     <div class="row justify-content-center">
@@ -77,6 +92,7 @@
    
     </table>
   </div>
+  
 </div>
 
 {% endblock %}
