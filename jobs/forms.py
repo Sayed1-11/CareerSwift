@@ -19,12 +19,8 @@ class ApplicationForm(forms.ModelForm):
     def __init__(self,*args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
 
-class JobSearch(forms.ModelForm):
-    class Meta:
-        model = Jobs
-        fields = ['title','location']
-        
-    def __init__(self,*args, **kwargs):
-        super(JobSearch, self).__init__(*args, **kwargs)
+class JobSearchForm(forms.Form):
+    job_title = forms.CharField(label='Job Title', max_length=100, required=True)
+    job_location = forms.CharField(label='Location', max_length=100, required=True)
 
    
