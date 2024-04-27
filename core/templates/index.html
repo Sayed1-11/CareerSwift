@@ -299,11 +299,11 @@ Bootstrap 5 HTML CSS Template
 
                                             <div class="d-flex">
                                                 <p class="mb-0">
-                                                    <a href="/" class="badge badge-level">{{job.Job_type}}</a>
+                                                    <a href="job-listings.html" class="badge badge-level">{{job.Job_type}}</a>
                                                 </p>
 
                                                 <p class="mb-0">
-                                                    <a href="/" class="badge">Freelance</a>
+                                                    <a href="job-listings.html" class="badge">Freelance</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -419,7 +419,7 @@ Bootstrap 5 HTML CSS Template
 
                                     <div class="job-image-box-wrap-info d-flex align-items-center">
                                         <p class="mb-0">
-                                            <a href="job-listings.html" class="badge badge-level">{{post.Job_type}}</a>
+                                            <a href="{% url "details" post.pk %}" class="badge badge-level">{{post.Job_type}}</a>
                                         </p>
 
                                         <p class="mb-0">
@@ -430,7 +430,7 @@ Bootstrap 5 HTML CSS Template
 
                                 <div class="job-body">
                                     <h4 class="job-title">
-                                        <a href="job-details.html" class="job-title-link">{{post.title}}</a>
+                                        <a href="{% url "details" post.pk %}" class="job-title-link">{{post.title}}</a>
                                     </h4>
 
                                     <div class="d-flex align-items-center">
@@ -467,9 +467,6 @@ Bootstrap 5 HTML CSS Template
                             </div>
                         </div>
                         {% endfor %}
-       
-
-                    
 
                     </div>
                 </div>
