@@ -12,6 +12,8 @@ from contact_us.forms import Contactform
 from jobs.forms import JobSearchForm
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from .models import NewsletterSubscriber
 # Create your views here.
 
 
@@ -40,33 +42,11 @@ def send_transaction_email(email, subject, template):
 #         else:
 #             jobs = None
 #         return self.render_to_response({'data': data, 'industry': Industry,'jobs': jobs})
-#     def post(self, request, *args, **kwargs):
-#         form = JobSearchForm(request.POST)
-#         if form.is_valid():
-#             job_title = form.cleaned_data['job_title']
-#             job_location = form.cleaned_data['job_location']
-#             jobs = Jobs.objects.filter(title=job_title, location=job_location)
-#             industries = Category.objects.all()  # Include industry data in context
-#             context = {
-#                 'data': jobs,
-#                 'industry': industries,  # Pass industry data to the context
-#                 'form': form,
-#             }
-#             return self.render_to_response(context)
-#         else:
-#             # If form is not valid, re-render the template with the form and error messages
-#             data = Jobs.objects.all()
-#             industries = Category.objects.all()
-#             if request.user.is_authenticated:
-#                 jobs, _ = Job_seeker.objects.get_or_create(user=request.user)
-#             else:
-#                 jobs = None
-#             return self.render_to_response({'data': data, 'industry': industries, 'jobs': jobs, 'form': form})
-
+ 
 
 class HomeView(TemplateView):
     template_name = 'index.html'
-
+    paginate_by = 6
     def get(self, request, industry=None):
         industries = Category.objects.all()
         data = Jobs.objects.all()
@@ -83,14 +63,23 @@ class HomeView(TemplateView):
             data = data.filter(industry=industry_instance)
 
         if request.user.is_authenticated:
-            jobs, _ = Job_seeker.objects.get_or_create(user=request.user)
+            job, _ = Job_seeker.objects.get_or_create(user=request.user)
         else:
-            jobs = None
+            job = None
+
+        paginator = Paginator(data,self.paginate_by)
+        page = request.GET.get('page')
+        try:
+            jobs = paginator.page(page)
+        except PageNotAnInteger:
+            jobs = paginator.page(1)
+        except EmptyPage:
+            jobs = paginator.page(paginator.num_pages)
 
         context = {
-            'data': data,
+            'data': jobs,
             'industry': industries,
-            'jobs': jobs,
+            'jobs': job,
             'search_query': {
                 'job_title': job_title,
                 'job_location': job_location,
@@ -109,14 +98,12 @@ class Details(DetailView):
         context['jobs']=jobs
         return context
     
-
-
-    
-
-def subsribe(request):
-    if request.method == 'POST':
-        email = request.POST.get('newsletter-email')
+class Subsribe(FormView):
+    def post(self, request,*args, **kwargs):
+        email = request.POST.get('newsletter-name')
+        news = NewsletterSubscriber.objects.create(email=email)
+        news.save()
         send_transaction_email(email, "New Subsribtion", "subsribe_mail.html")
-        return HttpResponseRedirect(reverse_lazy('home'))
-    else:
-        return HttpResponseRedirect(reverse_lazy('home'))
+
+        return HttpResponseRedirect(reverse_lazy('home')) 
+    
