@@ -4,14 +4,15 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.models import User
 from job_seeker.models import Job_seeker
 from .forms import JobsForm,ApplicationForm
 from .models import Jobs,JobApplication
 from datetime import datetime
+from django.contrib.auth.models import User
 from employee.models import Employee
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
+from core.models import NewsletterSubscriber
 
 def send_transaction_email(user, subject, template,seeker=None,letter=None):
         message = render_to_string(template, {
@@ -52,18 +53,18 @@ class JobsView(LoginRequiredMixin, CreateView):
         template = 'job_post_notification.html' 
         job = form.instance
         users = User.objects.all()
-
-        for user in users:
-            if user.email:
-                send_jobs_notification_email(
-                    user=user,  
-                    subject=subject,
-                    template=template,
-                    job=job
-                )
-        return super().form_valid(form)
+        new = NewsletterSubscriber.objects.all()
+        for news in new:
+            for user in users:
+                if user.email or news.email :
+                    send_jobs_notification_email(
+                        user=user or new,  
+                        subject=subject,
+                        template=template,
+                        job=job
+                    )
+            return super().form_valid(form)
         
-    
     
 class AppliedView(LoginRequiredMixin, FormView):
     template_name = 'applied.html'
